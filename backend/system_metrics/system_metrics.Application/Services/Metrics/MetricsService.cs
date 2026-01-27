@@ -7,6 +7,23 @@ namespace system_metrics.Application.Services.Metrics
     {
         public async Task<string> AddDeviceDetails(DeviceDetailsDTO deviceDetailsDto)
         {
+
+            if (string.IsNullOrEmpty(deviceDetailsDto.DeviceId))
+            {
+                throw new ArgumentException("Device id cannot be null or empty");
+            }
+            if (deviceDetailsDto.ThermalValue < 0 || deviceDetailsDto.ThermalValue > 3)
+            {
+                throw new ArgumentException("Thermal value must be between 0 and 3");
+            }
+            if (deviceDetailsDto.BatteryLevel < 0 || deviceDetailsDto.BatteryLevel > 100)
+            {
+                throw new ArgumentException("Battery level must be between 0 and 100");
+            }
+            if (deviceDetailsDto.MemoryUsage < 0 || deviceDetailsDto.MemoryUsage > 100)
+            {
+                throw new ArgumentException("Memory usage must be between 0 and 100");
+            }
             try
             {
                 var deviceDetails = DeviceDetailsDTO.MapEntity(deviceDetailsDto);
@@ -14,7 +31,7 @@ namespace system_metrics.Application.Services.Metrics
             }
             catch
             {
-                throw;
+                throw new ArgumentException("Fail");
             }
 
         }

@@ -15,9 +15,9 @@ namespace system_metrics.Api.Controllers
             {
                 var result = await metricsService.AddDeviceDetails(deviceDetails);
                 return Ok(result);
-            } catch
+            } catch (ArgumentException exception)
             {
-                return StatusCode(500, "An error occurred while processing the request.");
+                return StatusCode(500, exception.Message);
             }
         }
     }
