@@ -39,5 +39,19 @@ namespace system_metrics.Api.Controllers
                 return StatusCode(500, exception.Message);
             }
         }
+
+        [HttpGet("analytics")]
+        public async Task<IActionResult> GetAnalytics([FromQuery] string? deviceId, [FromQuery] DateTime? fromDate, [FromQuery] DateTime? toDate)
+        {
+            try
+            {
+                var result = await metricsService.GetAnalytics(deviceId, fromDate, toDate);
+                return Ok(result);
+            }
+            catch (ArgumentException exception)
+            {
+                return StatusCode(500, exception.Message);
+            }
+        }
     }
 }

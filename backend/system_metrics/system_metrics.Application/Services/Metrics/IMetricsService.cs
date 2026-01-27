@@ -7,5 +7,6 @@ namespace system_metrics.Application.Services.Metrics
     {
         Task<String> AddDeviceDetails(DeviceDetailsDTO deviceDetailsDto);
         Task<Pagination<DeviceDetails>> GetDeviceDetails(int pageNumber, int pageSize);
+        Task<AnalyticsDTO> GetAnalytics(string? deviceId, DateTime? fromDate, DateTime? toDate);
     }
 }

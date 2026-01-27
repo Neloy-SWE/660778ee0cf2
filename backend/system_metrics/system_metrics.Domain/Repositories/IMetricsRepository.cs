@@ -7,6 +7,6 @@ namespace system_metrics.Domain.Repositories
         Task<String> Create(DeviceDetails deviceDetails);
         Task<int> GetTotalCount();
         Task<List<DeviceDetails>> GetPagedDeviceDetails(int pageNumber, int pageSize);
-
+        Task<IEnumerable<DeviceDetails>> GetAnalytics(string? deviceId);
     }
 }

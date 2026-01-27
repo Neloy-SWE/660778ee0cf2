@@ -25,11 +25,19 @@ namespace system_metrics.Infrastructure.Repositories
             return items;
         }
 
-
         public async Task<int> GetTotalCount()
         {
             var count = await dbContext.DeviceDetails.CountAsync();
             return count;
+        }
+
+        public async Task<IEnumerable<DeviceDetails>> GetAnalytics(string? deviceId)
+        {
+            var query = await dbContext.DeviceDetails
+            .AsNoTracking()
+        .Where(x => x.DeviceId == deviceId)
+        .ToListAsync();
+            return query;
         }
     }
 }
