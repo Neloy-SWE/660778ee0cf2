@@ -1,10 +1,13 @@
+using system_metrics.Application.Services.Extensions;
 using system_metrics.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddInfrastructureServices(builder.Configuration);
+
 
 builder.Services.AddControllers();
+builder.Services.AddApplication();
+builder.Services.AddInfrastructureServices(builder.Configuration);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
