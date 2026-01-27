@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using system_metrics.Infrastructure.Persistence;
 
@@ -10,9 +11,11 @@ using system_metrics.Infrastructure.Persistence;
 namespace system_metrics.Infrastructure.Migrations
 {
     [DbContext(typeof(SystemMetricsDBContext))]
-    partial class SystemMetricsDBContextModelSnapshot : ModelSnapshot
+    [Migration("20260127174051_AddRequiredFields")]
+    partial class AddRequiredFields
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.23");
@@ -23,22 +26,23 @@ namespace system_metrics.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("BatteryLevel")
+                    b.Property<int>("BatteryLevel")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("DeviceId")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("MemoryUsage")
+                    b.Property<int>("MemoryUsage")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("ThermalValue")
+                    b.Property<int>("ThermalValue")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime?>("Timestamp")
+                    b.Property<DateTime>("Timestamp")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");

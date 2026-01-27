@@ -9,14 +9,18 @@ namespace system_metrics.Api.Controllers
     public class MetricsController(IMetricsService metricsService) : ControllerBase
     {
         [HttpPost]
-        public async Task<IActionResult> AddDeviceDetails(DeviceDetailsDTO deviceDetails)
+        public async Task<IActionResult> AddDeviceDetails([FromBody] DeviceDetailsDTO deviceDetails)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             try
             {
                 var result = await metricsService.AddDeviceDetails(deviceDetails);
                 return Ok(result);
             }
-            catch (ArgumentException exception)
+            catch (Exception exception)
             {
                 return StatusCode(500, exception.Message);
             }
