@@ -5,6 +5,7 @@ namespace system_metrics.Domain.Entities
     {
         public int Id { get; set; }
         public string? DeviceId { get; set; }
+        public string? DeviceOS { get; set; }
         public DateTime? Timestamp { get; set; }
         public int? ThermalValue { get; set; }
         public int? BatteryLevel { get; set; }

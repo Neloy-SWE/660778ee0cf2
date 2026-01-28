@@ -8,6 +8,8 @@ namespace system_metrics.Application.Dtos
     {
         [Required(ErrorMessage = "The DeviceId field is required.")]
         public string? DeviceId { get; set; }
+        [Required(ErrorMessage = "The DeviceOS field is required.")]
+        public string? DeviceOS { get; set; }
 
         [Required(ErrorMessage = "The Timestamp field is required.")]
         [TimeStamp(ErrorMessage = "You cannot report metrics for a future time.")]
@@ -29,6 +31,7 @@ namespace system_metrics.Application.Dtos
             return new DeviceDetails
             {
                 DeviceId = dto.DeviceId,
+                DeviceOS = dto.DeviceOS,
                 Timestamp = dto.Timestamp,
                 ThermalValue = dto.ThermalValue,
                 BatteryLevel = dto.BatteryLevel,

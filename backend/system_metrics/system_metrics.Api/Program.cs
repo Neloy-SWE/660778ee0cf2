@@ -2,7 +2,7 @@ using system_metrics.Application.Services.Extensions;
 using system_metrics.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.WebHost.UseUrls("http://0.0.0.0:5005"); // hosting for app development
 
 
 builder.Services.AddControllers();
