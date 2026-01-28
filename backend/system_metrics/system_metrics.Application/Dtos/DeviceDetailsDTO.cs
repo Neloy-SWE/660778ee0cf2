@@ -8,6 +8,7 @@ namespace system_metrics.Application.Dtos
     {
         [Required(ErrorMessage = "The DeviceId field is required.")]
         public string? DeviceId { get; set; }
+        
         [Required(ErrorMessage = "The DeviceOS field is required.")]
         public string? DeviceOS { get; set; }
 
