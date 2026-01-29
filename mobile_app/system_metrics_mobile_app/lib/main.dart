@@ -3,14 +3,13 @@ Created by Neloy on 28 January, 2026.
 Email: taufiqneloy.swe@gmail.com
 */
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:system_metrics_mobile_app/router/app_router.dart';
 
 import 'core/app_text.dart';
 import 'core/app_theme.dart';
 
-void main(){
+void main() {
   runApp(MyApp());
 }
 

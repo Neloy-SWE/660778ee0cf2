@@ -28,6 +28,22 @@ class AppTheme {
       iconTheme: IconThemeData(color: Colors.white),
     ),
 
+    textSelectionTheme: .new(
+      cursorColor: AppColor.colorPrimary,
+      selectionColor: AppColor.colorPrimaryShadow,
+      selectionHandleColor: AppColor.colorPrimary,
+    ),
+    snackBarTheme: .new(
+      // backgroundColor: AppColor.colorPrimary,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+      contentTextStyle: TextStyle(
+        fontFamily: AppAsset.fontRegular,
+        fontSize: 10,
+        color: Colors.white,
+      ),
+
+    ),
+
     textTheme: TextTheme(
       // for title related text
       titleLarge: TextStyle(
@@ -36,11 +52,25 @@ class AppTheme {
         fontSize: 25,
       ),
 
+      bodySmall: TextStyle(
+        fontFamily: AppAsset.fontBold,
+        color: Colors.white,
+        fontSize: 14,
+      ),
+
       bodyMedium: TextStyle(
         fontFamily: AppAsset.fontRegular,
         color: Colors.black,
         fontSize: 14,
       ),
+
+      bodyLarge: TextStyle(
+        fontFamily: AppAsset.fontBold,
+        color: Colors.black,
+        fontSize: 18,
+      ),
+
+
     ),
   );
 }

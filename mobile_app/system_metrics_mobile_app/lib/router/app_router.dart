@@ -4,7 +4,10 @@ Email: taufiqneloy.swe@gmail.com
 */
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:system_metrics_mobile_app/presentation/screen/dashboard/bloc/bloc_dashboard.dart';
+import 'package:system_metrics_mobile_app/presentation/screen/dashboard/screen_dashboard.dart';
 
 import '../presentation/screen/splash/screen_splash.dart';
 
@@ -12,6 +15,7 @@ final GlobalKey<NavigatorState> navigator = GlobalKey();
 
 class AppRouter {
   static const String screenSplash = "/screenSplash";
+  static const String screenDashboard = "/screenDashboard";
 }
 
 final GoRouter appRouter = GoRouter(
@@ -21,6 +25,14 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: AppRouter.screenSplash,
       builder: (context, state) => ScreenSplash(),
+    ),
+
+    GoRoute(
+      path: AppRouter.screenDashboard,
+      builder: (context, state) => BlocProvider<BlocDashboard>(
+        create: (_) => BlocDashboard(),
+        child: ScreenDashboard(),
+      ),
     ),
   ],
 );
