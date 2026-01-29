@@ -6,10 +6,15 @@ Email: taufiqneloy.swe@gmail.com
 import 'package:flutter/material.dart';
 import 'package:system_metrics_mobile_app/router/app_router.dart';
 
+import 'Dependency/service_injection.dart';
 import 'core/app_text.dart';
 import 'core/app_theme.dart';
 
-void main() {
+void main() async {
+  // initialize dependencies:
+  WidgetsFlutterBinding.ensureInitialized();
+  await injectService();
+
   runApp(MyApp());
 }
 
