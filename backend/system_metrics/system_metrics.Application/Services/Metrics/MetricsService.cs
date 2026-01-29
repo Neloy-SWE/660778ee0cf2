@@ -43,7 +43,7 @@ namespace system_metrics.Application.Services.Metrics
             }
         }
 
-        public async Task<AnalyticsDTO> GetAnalytics(string? deviceId, DateTime? fromDate, DateTime? toDate)
+        public async Task<IEnumerable<AnalyticsListDTO>> GetAnalytics(string? deviceId, DateTime? fromDate, DateTime? toDate)
         {
             try
             {
@@ -59,21 +59,50 @@ namespace system_metrics.Application.Services.Metrics
                 }
                 var analyticsDto = new AnalyticsDTO
                 {
-                    AverageThermalValue = deviceDetailsList.Any() ? deviceDetailsList.Average(d => d.ThermalValue ?? 0) : 0,
-                    AverageBatteryLevel = deviceDetailsList.Any() ? deviceDetailsList.Average(d => d.BatteryLevel ?? 0) : 0,
-                    AverageMemoryUsage = deviceDetailsList.Any() ? deviceDetailsList.Average(d => d.MemoryUsage ?? 0) : 0,
+                    AverageThermalValue = deviceDetailsList.Count != 0 ? deviceDetailsList.Average(d => d.ThermalValue ?? 0) : 0,
+                    AverageBatteryLevel = deviceDetailsList.Count != 0 ? deviceDetailsList.Average(d => d.BatteryLevel ?? 0) : 0,
+                    AverageMemoryUsage = deviceDetailsList.Count != 0 ? deviceDetailsList.Average(d => d.MemoryUsage ?? 0) : 0,
 
-                    MinimumBatteryLevel = deviceDetailsList.Any() ? deviceDetailsList.Min(d => d.BatteryLevel ?? 0) : 0,
-                    MaximumBatteryLevel = deviceDetailsList.Any() ? deviceDetailsList.Max(d => d.BatteryLevel ?? 0) : 0,
+                    MinimumBatteryLevel = deviceDetailsList.Count != 0 ? deviceDetailsList.Min(d => d.BatteryLevel ?? 0) : 0,
+                    MaximumBatteryLevel = deviceDetailsList.Count != 0 ? deviceDetailsList.Max(d => d.BatteryLevel ?? 0) : 0,
 
-                    MinimumMemoryUsage = deviceDetailsList.Any() ? deviceDetailsList.Min(d => d.MemoryUsage ?? 0) : 0,
-                    MaximumMemoryUsage = deviceDetailsList.Any() ? deviceDetailsList.Max(d => d.MemoryUsage ?? 0) : 0,
+                    MinimumMemoryUsage = deviceDetailsList.Count != 0 ? deviceDetailsList.Min(d => d.MemoryUsage ?? 0) : 0,
+                    MaximumMemoryUsage = deviceDetailsList.Count != 0 ? deviceDetailsList.Max(d => d.MemoryUsage ?? 0) : 0,
 
-                    MinimumThermalValue = deviceDetailsList.Any() ? deviceDetailsList.Min(d => d.ThermalValue ?? 0) : 0,
-                    MaximumThermalValue = deviceDetailsList.Any() ? deviceDetailsList.Max(d => d.ThermalValue ?? 0) : 0
+                    MinimumThermalValue = deviceDetailsList.Count != 0 ? deviceDetailsList.Min(d => d.ThermalValue ?? 0) : 0,
+                    MaximumThermalValue = deviceDetailsList.Count != 0 ? deviceDetailsList.Max(d => d.ThermalValue ?? 0) : 0
                 };
 
-                return analyticsDto;
+                AnalyticsListDTO thermalAnalytics = new AnalyticsListDTO
+                {
+                    Title = "Thermal Information",
+                    Average = analyticsDto.AverageThermalValue,
+                    Minimum = analyticsDto.MinimumThermalValue,
+                    Maximum = analyticsDto.MaximumThermalValue
+                };
+
+                AnalyticsListDTO batteryAnalytics = new AnalyticsListDTO
+                {
+                    Title = "Battery Information",
+                    Average = analyticsDto.AverageBatteryLevel,
+                    Minimum = analyticsDto.MinimumBatteryLevel,
+                    Maximum = analyticsDto.MaximumBatteryLevel
+                };
+
+                AnalyticsListDTO memoryAnalytics = new AnalyticsListDTO
+                {
+                    Title = "Memory Information",
+                    Average = analyticsDto.AverageMemoryUsage,
+                    Minimum = analyticsDto.MinimumMemoryUsage,
+                    Maximum = analyticsDto.MaximumMemoryUsage
+                };
+
+                return
+                [
+                    thermalAnalytics,
+                    batteryAnalytics,
+                    memoryAnalytics
+                ];
             }
             catch
             {
