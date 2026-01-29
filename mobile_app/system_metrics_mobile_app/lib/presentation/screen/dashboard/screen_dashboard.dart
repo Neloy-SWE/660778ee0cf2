@@ -36,7 +36,16 @@ class _ScreenDashboardState extends State<ScreenDashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(AppText.dashboard)),
+      appBar: AppBar(
+        title: Text(AppText.dashboard),
+        actions: [
+          IconButton(
+            onPressed: _getMatrics,
+            icon: Icon(Icons.refresh_outlined, color: Colors.white),
+          ),
+          AppSize.gapW20,
+        ],
+      ),
       body: SafeArea(
         child: BlocConsumer<BlocDashboard, StateDashboard>(
           listener: (BuildContext context, StateDashboard state) {
@@ -48,7 +57,7 @@ class _ScreenDashboardState extends State<ScreenDashboard> {
             if (state is StateDashboardInitialLoad) {
               return _parent(child: CustomDashboardLoader(index: 3));
             } else if (state is StateDashboardFail) {
-              return _parent(child: CustomFailedWidget(message: state.message,));
+              return _parent(child: CustomFailedWidget(message: state.message));
             } else if (state is StateDashboardDeviceDetails) {
               return _parent(
                 child: ListView(

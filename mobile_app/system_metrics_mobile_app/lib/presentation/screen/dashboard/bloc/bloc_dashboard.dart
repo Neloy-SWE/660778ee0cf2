@@ -58,9 +58,11 @@ class BlocDashboard extends Bloc<EventDashboard, StateDashboard> {
       );
       emit(StateDashboardDeviceDetails(systemMetrics: systemMetrics!));
     } on Exception {
-      emit(StateDashboardFail(message: "${AppText.somethingWentWrong} ${AppText.pullToRefresh}"));
+      emit(
+        StateDashboardFail(
+          message: "${AppText.somethingWentWrong} ${AppText.pullToRefresh}",
+        ),
+      );
     }
-
-
   }
 }

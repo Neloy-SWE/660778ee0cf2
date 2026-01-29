@@ -9,6 +9,7 @@ import 'package:system_metrics_mobile_app/core/app_text.dart';
 
 class CustomFailedWidget extends StatelessWidget {
   final String message;
+
   const CustomFailedWidget({super.key, required this.message});
 
   @override

@@ -41,7 +41,6 @@ class AppTheme {
         fontSize: 10,
         color: Colors.white,
       ),
-
     ),
 
     textTheme: TextTheme(
@@ -69,8 +68,6 @@ class AppTheme {
         color: Colors.black,
         fontSize: 18,
       ),
-
-
     ),
   );
 }
