@@ -33,23 +33,23 @@ class ModelSystemMetrics extends Equatable {
 
   factory ModelSystemMetrics.fromJson(Map<String, dynamic> json) =>
       ModelSystemMetrics(
-        deviceId: json["DeviceId"],
-        deviceOs: json["DeviceOS"],
-        timestamp: json["Timestamp"] == null
+        deviceId: json["deviceId"],
+        deviceOs: json["deviceOS"],
+        timestamp: json["timestamp"] == null
             ? null
-            : DateTime.parse(json["Timestamp"]),
-        thermalValue: json["ThermalValue"],
-        batteryLevel: json["BatteryLevel"],
-        memoryUsage: json["MemoryUsage"],
+            : DateTime.parse(json["timestamp"]),
+        thermalValue: json["thermalValue"],
+        batteryLevel: json["batteryLevel"],
+        memoryUsage: json["memoryUsage"],
       );
 
   Map<String, dynamic> toJson() => {
-    "DeviceId": deviceId,
-    "DeviceOS": deviceOs,
-    "Timestamp": timestamp?.toIso8601String(),
-    "ThermalValue": thermalValue,
-    "BatteryLevel": batteryLevel,
-    "MemoryUsage": memoryUsage,
+    "deviceId": deviceId,
+    "deviceOS": deviceOs,
+    "timestamp": timestamp?.toIso8601String(),
+    "thermalValue": thermalValue,
+    "batteryLevel": batteryLevel,
+    "memoryUsage": memoryUsage,
   };
 
   @override
