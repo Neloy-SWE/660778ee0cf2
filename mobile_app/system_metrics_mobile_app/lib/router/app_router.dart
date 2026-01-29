@@ -6,9 +6,11 @@ Email: taufiqneloy.swe@gmail.com
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:system_metrics_mobile_app/data/repository/repository_post_vitals.dart';
 import 'package:system_metrics_mobile_app/presentation/screen/dashboard/bloc/bloc_dashboard.dart';
 import 'package:system_metrics_mobile_app/presentation/screen/dashboard/screen_dashboard.dart';
 
+import '../Dependency/service_injection.dart';
 import '../presentation/screen/splash/screen_splash.dart';
 
 final GlobalKey<NavigatorState> navigator = GlobalKey();
@@ -30,7 +32,9 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: AppRouter.screenDashboard,
       builder: (context, state) => BlocProvider<BlocDashboard>(
-        create: (_) => BlocDashboard(),
+        create: (_) => BlocDashboard(
+          repositoryPostVitals: serviceInjector<IRepositoryPostVitals>(),
+        ),
         child: ScreenDashboard(),
       ),
     ),

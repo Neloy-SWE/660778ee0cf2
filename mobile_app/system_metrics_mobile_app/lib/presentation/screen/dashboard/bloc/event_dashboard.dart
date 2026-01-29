@@ -12,4 +12,5 @@ abstract class EventDashboard extends Equatable {
   List<Object?> get props => [];
 }
 
-class EventGetMatrics extends EventDashboard {}
+class EventGetMetrics extends EventDashboard {}
+class EventSaveMetrics extends EventDashboard {}

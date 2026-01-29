@@ -59,7 +59,7 @@ class _ScreenSplashState extends State<ScreenSplash> {
                   ),
                 ],
               ),
-              CircularProgressIndicator(color: Colors.white),
+              CircularProgressIndicator(color: AppColor.colorSecondary),
             ],
           ),
         ),

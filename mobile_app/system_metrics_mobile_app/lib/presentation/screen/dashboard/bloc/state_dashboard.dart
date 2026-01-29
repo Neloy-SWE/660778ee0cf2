@@ -31,3 +31,14 @@ class StateDashboardFail extends StateDashboard {
   @override
   List<Object?> get props => [message];
 }
+
+class StateDashboardSaveMetricsLoad extends StateDashboard {}
+
+class StateDashboardSaveMetricsDone extends StateDashboard {
+  final String message;
+
+  const StateDashboardSaveMetricsDone({required this.message});
+
+  @override
+  List<Object?> get props => [message];
+}

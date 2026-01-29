@@ -5,6 +5,7 @@ Email: taufiqneloy.swe@gmail.com
 
 import 'package:flutter/material.dart';
 import 'package:system_metrics_mobile_app/core/app_color.dart';
+import 'package:system_metrics_mobile_app/core/app_size.dart';
 import 'package:system_metrics_mobile_app/core/app_text.dart';
 
 class CustomFailedWidget extends StatelessWidget {
@@ -24,6 +25,7 @@ class CustomFailedWidget extends StatelessWidget {
             size: 50,
             color: AppColor.colorPrimaryShadow,
           ),
+          AppSize.gapH20,
           Text(
             message,
             style: AppText.style.bodySmall!.copyWith(

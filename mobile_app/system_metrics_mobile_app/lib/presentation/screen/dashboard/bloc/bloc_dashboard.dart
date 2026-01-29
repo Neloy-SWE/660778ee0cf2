@@ -12,14 +12,19 @@ import 'package:system_metrics_mobile_app/core/app_constant.dart';
 import 'package:system_metrics_mobile_app/core/app_text.dart';
 import 'package:system_metrics_mobile_app/data/model/model_system_metrics.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
+import 'package:system_metrics_mobile_app/data/repository/repository_post_vitals.dart';
 
 part 'event_dashboard.dart';
 
 part 'state_dashboard.dart';
 
 class BlocDashboard extends Bloc<EventDashboard, StateDashboard> {
-  BlocDashboard() : super(StateDashboardInitialLoad()) {
-    on<EventGetMatrics>(_onGetMatrics, transformer: restartable());
+  final IRepositoryPostVitals repositoryPostVitals;
+
+  BlocDashboard({required this.repositoryPostVitals})
+    : super(StateDashboardInitialLoad()) {
+    on<EventGetMetrics>(_onGetMatrics, transformer: restartable());
+    on<EventSaveMetrics>(_onSaveMatrics, transformer: restartable());
   }
 
   static const MethodChannel _channel = MethodChannel(
@@ -28,7 +33,7 @@ class BlocDashboard extends Bloc<EventDashboard, StateDashboard> {
   ModelSystemMetrics? systemMetrics;
 
   Future<void> _onGetMatrics(
-    EventGetMatrics event,
+    EventGetMetrics event,
     Emitter<StateDashboard> emit,
   ) async {
     emit(StateDashboardInitialLoad());
@@ -53,7 +58,7 @@ class BlocDashboard extends Bloc<EventDashboard, StateDashboard> {
         batteryLevel: battery[AppConstant.batteryLevel],
         memoryUsage: (memory[AppConstant.memoryUsage]).toInt(),
         deviceId: deviceId,
-        timestamp: DateTime.now(),
+        timestamp: DateTime.now().toUtc(),
         deviceOs: Platform.isAndroid ? "Android" : "iOS",
       );
       emit(StateDashboardDeviceDetails(systemMetrics: systemMetrics!));
@@ -63,6 +68,22 @@ class BlocDashboard extends Bloc<EventDashboard, StateDashboard> {
           message: "${AppText.somethingWentWrong} ${AppText.pullToRefresh}",
         ),
       );
+    }
+  }
+
+  Future<void> _onSaveMatrics(
+    EventSaveMetrics event,
+    Emitter<StateDashboard> emit,
+  ) async {
+    emit(StateDashboardSaveMetricsLoad());
+
+    var (pass, fail) = await repositoryPostVitals.addDeviceDetails(
+      systemMetrics: systemMetrics!,
+    );
+    if (fail == null) {
+      emit(StateDashboardSaveMetricsDone(message: pass!));
+    } else {
+      emit(StateDashboardFail(message: fail));
     }
   }
 }

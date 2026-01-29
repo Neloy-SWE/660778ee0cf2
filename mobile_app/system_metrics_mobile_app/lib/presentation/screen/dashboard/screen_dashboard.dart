@@ -9,6 +9,7 @@ import 'package:system_metrics_mobile_app/core/app_size.dart';
 import 'package:system_metrics_mobile_app/core/app_text.dart';
 import 'package:system_metrics_mobile_app/presentation/custom_widget/custom_button.dart';
 import 'package:system_metrics_mobile_app/presentation/custom_widget/custom_failed_widget.dart';
+import 'package:system_metrics_mobile_app/presentation/custom_widget/custom_simple_dialogue_loader.dart';
 import 'package:system_metrics_mobile_app/presentation/custom_widget/custom_snack_bar.dart';
 import 'package:system_metrics_mobile_app/presentation/screen/dashboard/bloc/bloc_dashboard.dart';
 
@@ -25,12 +26,12 @@ class ScreenDashboard extends StatefulWidget {
 class _ScreenDashboardState extends State<ScreenDashboard> {
   @override
   void initState() {
-    _getMatrics();
+    _getMetrics();
     super.initState();
   }
 
-  void _getMatrics() {
-    context.read<BlocDashboard>().add(EventGetMatrics());
+  void _getMetrics() {
+    context.read<BlocDashboard>().add(EventGetMetrics());
   }
 
   @override
@@ -40,8 +41,8 @@ class _ScreenDashboardState extends State<ScreenDashboard> {
         title: Text(AppText.dashboard),
         actions: [
           IconButton(
-            onPressed: _getMatrics,
-            icon: Icon(Icons.refresh_outlined, color: Colors.white),
+            onPressed: _getMetrics,
+            icon: Icon(Icons.refresh_outlined, color: AppColor.colorSecondary),
           ),
           AppSize.gapW20,
         ],
@@ -50,6 +51,21 @@ class _ScreenDashboardState extends State<ScreenDashboard> {
         child: BlocConsumer<BlocDashboard, StateDashboard>(
           listener: (BuildContext context, StateDashboard state) {
             if (state is StateDashboardFail) {
+              if (ModalRoute.of(context)?.isCurrent == false) {
+                Navigator.of(context).pop();
+              }
+              CustomSnackBar.show(
+                context: context,
+                isError: true,
+                contentText: state.message,
+              );
+            } else if (state is StateDashboardSaveMetricsLoad) {
+              CustomSimpleDialogueLoader.show(context: context);
+            } else if (state is StateDashboardSaveMetricsDone) {
+              if (ModalRoute.of(context)?.isCurrent == false) {
+                Navigator.of(context).pop();
+              }
+
               CustomSnackBar.show(context: context, contentText: state.message);
             }
           },
@@ -57,8 +73,17 @@ class _ScreenDashboardState extends State<ScreenDashboard> {
             if (state is StateDashboardInitialLoad) {
               return _parent(child: CustomDashboardLoader(index: 3));
             } else if (state is StateDashboardFail) {
-              return _parent(child: CustomFailedWidget(message: state.message));
-            } else if (state is StateDashboardDeviceDetails) {
+              return _parent(
+                child: ListView(
+                  children: [
+                    AppSize.gapH80,
+                    CustomFailedWidget(message: state.message),
+                  ],
+                ),
+              );
+            } else if (state is StateDashboardDeviceDetails ||
+                state is StateDashboardSaveMetricsDone ||
+                state is StateDashboardSaveMetricsLoad) {
               return _parent(
                 child: ListView(
                   padding: EdgeInsets.all(25),
@@ -66,32 +91,50 @@ class _ScreenDashboardState extends State<ScreenDashboard> {
                     _metricsElement(
                       icon: Icons.phone_android_outlined,
                       title: AppText.deviceOS,
-                      value: state.systemMetrics.deviceOs!,
+                      // value: state.systemMetrics.deviceOs!,
+                      value: context
+                          .read<BlocDashboard>()
+                          .systemMetrics!
+                          .deviceOs!,
                     ),
                     _metricsElement(
                       icon: Icons.thermostat_outlined,
                       title: AppText.thermalStaus,
-                      value: state.systemMetrics.thermalStatus!,
+                      value: context
+                          .read<BlocDashboard>()
+                          .systemMetrics!
+                          .thermalStatus!,
                     ),
                     _metricsElement(
                       icon: Icons.thermostat_auto_outlined,
                       title: AppText.thermalValue,
-                      value: state.systemMetrics.thermalValue.toString(),
+                      value: context
+                          .read<BlocDashboard>()
+                          .systemMetrics!
+                          .thermalValue
+                          .toString(),
                     ),
                     _metricsElement(
                       icon: Icons.battery_charging_full_outlined,
                       title: AppText.batteryLevel,
-                      value: state.systemMetrics.batteryLevel.toString(),
+                      value: context
+                          .read<BlocDashboard>()
+                          .systemMetrics!
+                          .batteryLevel
+                          .toString(),
                     ),
                     _metricsElement(
                       icon: Icons.memory_outlined,
                       title: AppText.memoryUsage,
-                      value: "${state.systemMetrics.memoryUsage}%",
+                      value:
+                          "${context.read<BlocDashboard>().systemMetrics!.memoryUsage}%",
                     ),
 
                     AppSize.gapH35,
                     CustomButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        context.read<BlocDashboard>().add(EventSaveMetrics());
+                      },
                       buttonText: AppText.logStatus,
                     ),
                   ],
@@ -110,7 +153,7 @@ class _ScreenDashboardState extends State<ScreenDashboard> {
     return RefreshIndicator(
       color: AppColor.colorPrimary,
       onRefresh: () async {
-        _getMatrics();
+        _getMetrics();
       },
       child: child,
     );
@@ -126,7 +169,7 @@ class _ScreenDashboardState extends State<ScreenDashboard> {
       children: [
         Row(
           children: [
-            Icon(icon, size: 35, color: AppColor.colorPrimary),
+            Icon(icon, size: 35, color: AppColor.colorSecondary),
             AppSize.gapW05,
             Text(title, style: AppText.style.bodyLarge),
           ],
