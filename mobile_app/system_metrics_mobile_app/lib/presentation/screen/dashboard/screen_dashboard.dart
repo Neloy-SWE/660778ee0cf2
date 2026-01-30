@@ -5,16 +5,18 @@ Email: taufiqneloy.swe@gmail.com
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:system_metrics_mobile_app/core/app_size.dart';
 import 'package:system_metrics_mobile_app/core/app_text.dart';
 import 'package:system_metrics_mobile_app/presentation/custom_widget/custom_button.dart';
 import 'package:system_metrics_mobile_app/presentation/custom_widget/custom_failed_widget.dart';
-import 'package:system_metrics_mobile_app/presentation/custom_widget/custom_simple_dialogue_loader.dart';
+import 'package:system_metrics_mobile_app/presentation/custom_widget/loader/custom_loader_simple_dialogue.dart';
 import 'package:system_metrics_mobile_app/presentation/custom_widget/custom_snack_bar.dart';
 import 'package:system_metrics_mobile_app/presentation/screen/dashboard/bloc/bloc_dashboard.dart';
+import 'package:system_metrics_mobile_app/router/app_router.dart';
 
 import '../../../core/app_color.dart';
-import '../../custom_widget/custom_dashboard_loader.dart';
+import '../../custom_widget/loader/custom_loader_dashboard.dart';
 
 class ScreenDashboard extends StatefulWidget {
   const ScreenDashboard({super.key});
@@ -60,7 +62,7 @@ class _ScreenDashboardState extends State<ScreenDashboard> {
                 contentText: state.message,
               );
             } else if (state is StateDashboardSaveMetricsLoad) {
-              CustomSimpleDialogueLoader.show(context: context);
+              CustomLoaderSimpleDialogue.show(context: context);
             } else if (state is StateDashboardSaveMetricsDone) {
               if (ModalRoute.of(context)?.isCurrent == false) {
                 Navigator.of(context).pop();
@@ -71,7 +73,7 @@ class _ScreenDashboardState extends State<ScreenDashboard> {
           },
           builder: (BuildContext context, StateDashboard state) {
             if (state is StateDashboardInitialLoad) {
-              return _parent(child: CustomDashboardLoader(index: 3));
+              return _parent(child: CustomLoaderDashboard());
             } else if (state is StateDashboardFail) {
               return _parent(
                 child: ListView(
@@ -93,7 +95,7 @@ class _ScreenDashboardState extends State<ScreenDashboard> {
                       title: AppText.deviceOS,
                       // value: state.systemMetrics.deviceOs!,
                       value: context
-                          .read<BlocDashboard>()
+                          .watch<BlocDashboard>()
                           .systemMetrics!
                           .deviceOs!,
                     ),
@@ -101,7 +103,7 @@ class _ScreenDashboardState extends State<ScreenDashboard> {
                       icon: Icons.thermostat_outlined,
                       title: AppText.thermalStaus,
                       value: context
-                          .read<BlocDashboard>()
+                          .watch<BlocDashboard>()
                           .systemMetrics!
                           .thermalStatus!,
                     ),
@@ -109,7 +111,7 @@ class _ScreenDashboardState extends State<ScreenDashboard> {
                       icon: Icons.thermostat_auto_outlined,
                       title: AppText.thermalValue,
                       value: context
-                          .read<BlocDashboard>()
+                          .watch<BlocDashboard>()
                           .systemMetrics!
                           .thermalValue
                           .toString(),
@@ -117,17 +119,14 @@ class _ScreenDashboardState extends State<ScreenDashboard> {
                     _metricsElement(
                       icon: Icons.battery_charging_full_outlined,
                       title: AppText.batteryLevel,
-                      value: context
-                          .read<BlocDashboard>()
-                          .systemMetrics!
-                          .batteryLevel
-                          .toString(),
+                      value:
+                          "${context.watch<BlocDashboard>().systemMetrics!.batteryLevel}%",
                     ),
                     _metricsElement(
                       icon: Icons.memory_outlined,
                       title: AppText.memoryUsage,
                       value:
-                          "${context.read<BlocDashboard>().systemMetrics!.memoryUsage}%",
+                          "${context.watch<BlocDashboard>().systemMetrics!.memoryUsage}%",
                     ),
 
                     AppSize.gapH35,
@@ -136,6 +135,22 @@ class _ScreenDashboardState extends State<ScreenDashboard> {
                         context.read<BlocDashboard>().add(EventSaveMetrics());
                       },
                       buttonText: AppText.logStatus,
+                    ),
+                    AppSize.gapH15,
+                    CustomButton(
+                      onPressed: () {
+                        context.push(
+                          AppRouter.screenHistory,
+                          extra: context
+                              .read<BlocDashboard>()
+                              .systemMetrics!
+                              .deviceId,
+                        );
+                      },
+                      buttonText: AppText.history,
+                      colorText: AppColor.colorPrimary,
+                      colorButton: Colors.white,
+                      colorBorder: AppColor.colorPrimary,
                     ),
                   ],
                 ),

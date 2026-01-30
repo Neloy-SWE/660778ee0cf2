@@ -7,10 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:system_metrics_mobile_app/core/app_color.dart';
 import 'package:system_metrics_mobile_app/core/app_size.dart';
 
-class CustomDashboardLoader extends StatelessWidget {
+class CustomLoaderDashboard extends StatelessWidget {
   final int index;
 
-  const CustomDashboardLoader({super.key, required this.index});
+  const CustomLoaderDashboard({super.key, this.index = 3});
 
   @override
   Widget build(BuildContext context) {

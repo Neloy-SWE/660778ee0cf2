@@ -19,8 +19,20 @@ class AppText {
   static const String pullToRefresh = "Pull to refresh";
   static const String thermalStaus = "Thermal Status";
   static const String thermalValue = "Thermal Value";
+  static const String thermalValueColon = "Thermal Value: ";
   static const String deviceOS = "Device OS";
   static const String batteryLevel = "Battery Level";
+  static const String batteryLevelColon = "Battery Level: ";
   static const String memoryUsage = "Memory Usage";
+  static const String memoryUsageColon = "Memory Usage: ";
   static const String logStatus = "Log Status";
+  static const String history = "History";
+  static const String selectDate = "Select Date";
+  static const String from = "From";
+  static const String to = "To";
+  static const String analytics = "Analytics";
+  static const String average = "Average";
+  static const String maximum = "Maximum";
+  static const String minimum = "Minimum";
+  static const String noMoreHistory = "No more history exist";
 }

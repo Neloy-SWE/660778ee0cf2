@@ -13,7 +13,7 @@ class CustomButton extends StatelessWidget {
   final String buttonText;
   final Color colorButton;
   final Color colorBorder;
-  final Color textColor;
+  final Color colorText;
   final double height;
 
   const CustomButton({
@@ -22,7 +22,7 @@ class CustomButton extends StatelessWidget {
     required this.buttonText,
     this.colorButton = AppColor.colorPrimary,
     this.colorBorder = AppColor.colorPrimary,
-    this.textColor = Colors.white,
+    this.colorText = Colors.white,
     this.height = 50,
   });
 
@@ -39,7 +39,7 @@ class CustomButton extends StatelessWidget {
       ),
       child: Text(
         buttonText,
-        style: AppText.style.bodySmall!.copyWith(color: textColor),
+        style: AppText.style.bodySmall!.copyWith(color: colorText),
       ),
     );
   }

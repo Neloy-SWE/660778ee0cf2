@@ -15,7 +15,7 @@ abstract class IRepositoryPostVitals {
 }
 
 class RepositoryPostVitals extends IRepositoryPostVitals {
-  IApiCallPostVitals apiCallPostVitals;
+  final IApiCallPostVitals apiCallPostVitals;
 
   RepositoryPostVitals({required this.apiCallPostVitals});
 
