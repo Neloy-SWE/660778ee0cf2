@@ -12,6 +12,18 @@ abstract class EventHistoryList extends Equatable {
   List<Object?> get props => [];
 }
 
-class EventGetHistoryList extends EventHistoryList {}
+class EventGetHistoryList extends EventHistoryList {
+  final String deviceId;
+  const EventGetHistoryList({required this.deviceId});
 
-class EventHistoryListLoadMore extends EventHistoryList {}
+  @override
+  List<Object?> get props => [deviceId];
+}
+
+class EventHistoryListLoadMore extends EventHistoryList {
+  final String deviceId;
+  const EventHistoryListLoadMore({required this.deviceId});
+
+  @override
+  List<Object?> get props => [deviceId];
+}

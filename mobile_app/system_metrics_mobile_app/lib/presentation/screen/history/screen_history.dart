@@ -75,11 +75,15 @@ class _ScreenHistoryState extends State<ScreenHistory> {
   }
 
   void _loadHistory() {
-    context.read<BlocHistoryList>().add(EventGetHistoryList());
+    context.read<BlocHistoryList>().add(
+      EventGetHistoryList(deviceId: widget.deviceId),
+    );
   }
 
   void _loadHistoryMore() {
-    context.read<BlocHistoryList>().add(EventHistoryListLoadMore());
+    context.read<BlocHistoryList>().add(
+      EventHistoryListLoadMore(deviceId: widget.deviceId),
+    );
   }
 
   @override

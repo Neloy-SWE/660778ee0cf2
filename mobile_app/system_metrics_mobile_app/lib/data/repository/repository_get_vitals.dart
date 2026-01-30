@@ -10,6 +10,7 @@ import 'package:system_metrics_mobile_app/data/model/model_history_list.dart';
 
 abstract class IRepositoryGetVitals {
   Future<(ModelHistoryList? historyList, String? fail)> getHistoryList({
+    required String deviceId,
     required int pageNumber,
     required int pageSize,
   });
@@ -22,11 +23,13 @@ class RepositoryGetVitals extends IRepositoryGetVitals {
 
   @override
   Future<(ModelHistoryList?, String?)> getHistoryList({
+    required String deviceId,
     required int pageNumber,
     required int pageSize,
   }) async {
     try {
       Map<String, dynamic> data = {
+        ClientConstant.deviceId: deviceId,
         ClientConstant.pageNumber: pageNumber,
         ClientConstant.pageSize: pageSize,
       };

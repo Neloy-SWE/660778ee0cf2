@@ -37,9 +37,10 @@ class BlocHistoryList extends Bloc<EventHistoryList, StateHistoryList> {
   ) async {
     pageNumber = 1;
     pageSize = 10;
+    emit(StateHistoryListLoadInitial());
     var (historyList, fail) = await repositoryGetVitals.getHistoryList(
       pageNumber: pageNumber,
-      pageSize: pageSize,
+      pageSize: pageSize, deviceId: event.deviceId,
     );
 
     if (fail == null) {
@@ -59,7 +60,7 @@ class BlocHistoryList extends Bloc<EventHistoryList, StateHistoryList> {
     if (items.length < maxCount) {
       var (historyList, fail) = await repositoryGetVitals.getHistoryList(
         pageNumber: pageNumber + 1,
-        pageSize: pageSize,
+        pageSize: pageSize, deviceId: event.deviceId,
       );
 
       if (fail == null) {

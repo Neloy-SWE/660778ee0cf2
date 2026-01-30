@@ -11,6 +11,7 @@ class AppConstant {
   static const String metricsBattery = "metricsBattery";
   static const String metricsMemory = "metricsMemory";
   static const String getAndroidId = "getAndroidId";
+  static const String getIosId = "getIosId";
 
   // keys:
   static const String thermalStatus = "thermalStatus";

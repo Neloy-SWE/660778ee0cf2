@@ -49,7 +49,7 @@ class BlocDashboard extends Bloc<EventDashboard, StateDashboard> {
         AppConstant.metricsMemory,
       );
       String? deviceId = await _channel.invokeMethod<String>(
-        AppConstant.getAndroidId,
+        Platform.isAndroid ? AppConstant.getAndroidId : AppConstant.getIosId,
       );
 
       systemMetrics = ModelSystemMetrics(
