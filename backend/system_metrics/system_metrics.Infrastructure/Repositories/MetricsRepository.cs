@@ -18,7 +18,7 @@ namespace system_metrics.Infrastructure.Repositories
         {
             var items = await dbContext.DeviceDetails
         .AsNoTracking()
-        .OrderByDescending(x => x.Id)
+        .OrderByDescending(x => x.Timestamp)
         .Skip((pageNumber - 1) * pageSize)
         .Take(pageSize)
         .ToListAsync();

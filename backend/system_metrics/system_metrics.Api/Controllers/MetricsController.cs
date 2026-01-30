@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using system_metrics.Application.Dtos;
 using system_metrics.Application.Services.Metrics;
@@ -41,7 +42,7 @@ namespace system_metrics.Api.Controllers
         }
 
         [HttpGet("analytics")]
-        public async Task<IActionResult> GetAnalytics([FromQuery] string? deviceId, [FromQuery] DateTime? fromDate, [FromQuery] DateTime? toDate)
+        public async Task<IActionResult> GetAnalytics([FromQuery, Required] string deviceId, [FromQuery] DateTime? fromDate, [FromQuery] DateTime? toDate)
         {
             try
             {
