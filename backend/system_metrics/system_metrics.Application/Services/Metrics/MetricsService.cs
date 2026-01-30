@@ -20,14 +20,14 @@ namespace system_metrics.Application.Services.Metrics
 
         }
 
-        public async Task<Pagination<DeviceDetails>> GetDeviceDetails(int pageNumber, int pageSize)
+        public async Task<Pagination<DeviceDetails>> GetDeviceDetails(string deviceId, int pageNumber, int pageSize)
         {
             try
             {
                 pageNumber = pageNumber < 1 ? 1 : pageNumber;
                 pageSize = pageSize < 1 ? 10 : pageSize;
-                int count = await metricsRepository.GetTotalCount();
-                var items = await metricsRepository.GetPagedDeviceDetails(pageNumber, pageSize);
+                int count = await metricsRepository.GetTotalCount(deviceId);
+                var items = await metricsRepository.GetPagedDeviceDetails(deviceId, pageNumber, pageSize);
 
                 return new Pagination<DeviceDetails>
                 {

@@ -28,11 +28,11 @@ namespace system_metrics.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetDeviceDetails([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
+        public async Task<IActionResult> GetDeviceDetails([FromQuery, Required] string deviceId,[FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
             try
             {
-                var result = await metricsService.GetDeviceDetails(pageNumber, pageSize);
+                var result = await metricsService.GetDeviceDetails(deviceId, pageNumber, pageSize);
                 return Ok(result);
             }
             catch (ArgumentException exception)

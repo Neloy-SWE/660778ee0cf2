@@ -14,10 +14,11 @@ namespace system_metrics.Infrastructure.Repositories
             return "created";
         }
 
-        public async Task<List<DeviceDetails>> GetPagedDeviceDetails(int pageNumber, int pageSize)
+        public async Task<List<DeviceDetails>> GetPagedDeviceDetails(string deviceId, int pageNumber, int pageSize)
         {
             var items = await dbContext.DeviceDetails
         .AsNoTracking()
+        .Where(x => x.DeviceId == deviceId)
         .OrderByDescending(x => x.Timestamp)
         .Skip((pageNumber - 1) * pageSize)
         .Take(pageSize)
@@ -25,9 +26,9 @@ namespace system_metrics.Infrastructure.Repositories
             return items;
         }
 
-        public async Task<int> GetTotalCount()
+        public async Task<int> GetTotalCount(string deviceId)
         {
-            var count = await dbContext.DeviceDetails.CountAsync();
+            var count = await dbContext.DeviceDetails.CountAsync(x => x.DeviceId == deviceId);
             return count;
         }
 

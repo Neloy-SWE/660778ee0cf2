@@ -6,7 +6,7 @@ namespace system_metrics.Application.Services.Metrics
     public interface IMetricsService
     {
         Task<String> AddDeviceDetails(DeviceDetailsDTO deviceDetailsDto);
-        Task<Pagination<DeviceDetails>> GetDeviceDetails(int pageNumber, int pageSize);
+        Task<Pagination<DeviceDetails>> GetDeviceDetails(string deviceId, int pageNumber, int pageSize);
         Task<IEnumerable<AnalyticsListDTO>> GetAnalytics(string? deviceId, DateTime? fromDate, DateTime? toDate);
     }
 }
