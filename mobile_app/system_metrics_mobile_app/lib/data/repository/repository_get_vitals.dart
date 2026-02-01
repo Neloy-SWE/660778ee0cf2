@@ -34,12 +34,15 @@ class RepositoryGetVitals extends IRepositoryGetVitals {
         ClientConstant.pageSize: pageSize,
       };
 
-      Response response = await apiCallGetVitals.getHistory(data: data);
-      if (response.statusCode == ClientConstant.statusCode200OK) {
-        return (ModelHistoryList.fromRawJson(response.toString()), null);
-      } else {
-        return (null, ClientConstant.dataFetchedFailed);
-      }
+      // Response response = await apiCallGetVitals.getHistory(data: data);
+      // if (response.statusCode == ClientConstant.statusCode200OK) {
+      //   return (ModelHistoryList.fromRawJson(response.toString()), null);
+      // } else {
+      //   return (null, ClientConstant.dataFetchedFailed);
+      // }
+
+      ModelHistoryList historyList = await apiCallGetVitals.getHistory(data: data);
+      return (historyList, null);
     } on Exception {
       return (null, ClientConstant.dataFetchedFailed);
     }

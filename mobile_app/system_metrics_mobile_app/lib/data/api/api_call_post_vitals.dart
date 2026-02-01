@@ -9,7 +9,7 @@ import 'package:system_metrics_mobile_app/data/api/api_path.dart';
 import '../client/client.dart';
 
 abstract class IApiCallPostVitals {
-  Future<Response> addDeviceDetails({required Map<String, dynamic> data});
+  Future<String> addDeviceDetails({required Map<String, dynamic> data});
 }
 
 class ApiCallPostVitals extends IApiCallPostVitals {
@@ -18,10 +18,10 @@ class ApiCallPostVitals extends IApiCallPostVitals {
   ApiCallPostVitals({required this.client});
 
   @override
-  Future<Response> addDeviceDetails({
+  Future<String> addDeviceDetails({
     required Map<String, dynamic> data,
   }) async {
     Response response = await client.request.post(ApiPath.vitals, data: data);
-    return response;
+    return response.data;
   }
 }

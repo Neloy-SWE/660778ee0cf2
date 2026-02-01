@@ -6,10 +6,11 @@ Email: taufiqneloy.swe@gmail.com
 import 'package:dio/dio.dart';
 
 import '../client/client.dart';
+import '../model/model_history_list.dart';
 import 'api_path.dart';
 
 abstract class IApiCallGetVitals {
-  Future<Response> getHistory({required Map<String, dynamic> data});
+  Future<ModelHistoryList> getHistory({required Map<String, dynamic> data});
 }
 
 class ApiCallGetVitals extends IApiCallGetVitals {
@@ -18,11 +19,11 @@ class ApiCallGetVitals extends IApiCallGetVitals {
   ApiCallGetVitals({required this.client});
 
   @override
-  Future<Response> getHistory({required Map<String, dynamic> data}) async {
+  Future<ModelHistoryList> getHistory({required Map<String, dynamic> data}) async {
     Response response = await client.request.get(
       ApiPath.vitals,
       queryParameters: data,
     );
-    return response;
+    return ModelHistoryList.fromRawJson(response.toString());
   }
 }

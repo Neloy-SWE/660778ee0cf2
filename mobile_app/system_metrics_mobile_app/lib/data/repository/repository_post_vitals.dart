@@ -25,13 +25,9 @@ class RepositoryPostVitals extends IRepositoryPostVitals {
   }) async {
     try {
       Map<String, dynamic> data = systemMetrics.toJson();
-      Response response = await apiCallPostVitals.addDeviceDetails(data: data);
-      if (response.statusCode == ClientConstant.statusCode200OK) {
-        if (response.data == ClientConstant.created) {
-          return (ClientConstant.dataSavedSuccessfully, null);
-        } else {
-          return (null, ClientConstant.dataSavedFailed);
-        }
+      String result = await apiCallPostVitals.addDeviceDetails(data: data);
+      if (result == ClientConstant.created) {
+        return (ClientConstant.dataSavedSuccessfully, null);
       } else {
         return (null, ClientConstant.dataSavedFailed);
       }

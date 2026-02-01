@@ -65,10 +65,9 @@ private let channelName = "getSystemMetrics"
 
       private func getThermalStatus(level: Int) -> String {
           switch level {
-          case 0: return "Normal"
-          case 1: return "light"
-          case 2: return "Moderate"
-          case 3: return "Severe"
+          case 0: return "Nominal"
+          case 1: return "Fair"
+          case 2: return "Serious"
           default: return "Critical"
           }
       }

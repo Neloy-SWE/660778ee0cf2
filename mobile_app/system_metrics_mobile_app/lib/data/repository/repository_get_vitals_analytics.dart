@@ -32,19 +32,20 @@ class RepositoryGetVitalsAnalytics extends IRepositoryGetVitalsAnalytics {
         ClientConstant.toDate: dateTo,
       };
 
-      Response response = await apiCallGetVitalsAnalytics.getAnalyticsData(data: data);
-      if (response.statusCode == ClientConstant.statusCode200OK) {
-        final dataList = response.data as List<dynamic>;
-        List<ModelAnalytics> analyticsData = dataList
-            .map((voter) =>
-            ModelAnalytics.fromJson(voter as Map<String, dynamic>))
-            .toList();
-
-        return (analyticsData, null);
-      }
-      else {
-        return (null, ClientConstant.dataFetchedFailed);
-      }
+      List<ModelAnalytics> analyticsData = await apiCallGetVitalsAnalytics.getAnalyticsData(data: data);
+      // if (response.statusCode == ClientConstant.statusCode200OK) {
+      //   final dataList = response.data as List<dynamic>;
+      //   List<ModelAnalytics> analyticsData = dataList
+      //       .map((voter) =>
+      //       ModelAnalytics.fromJson(voter as Map<String, dynamic>))
+      //       .toList();
+      //
+      //   return (analyticsData, null);
+      // }
+      // else {
+      //   return (null, ClientConstant.dataFetchedFailed);
+      // }
+      return (analyticsData, null);
     } on Exception {
       return (null, ClientConstant.dataFetchedFailed);
     }

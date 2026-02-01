@@ -56,8 +56,8 @@ class BlocHistoryList extends Bloc<EventHistoryList, StateHistoryList> {
     EventHistoryListLoadMore event,
     Emitter<StateHistoryList> emit,
   ) async {
-    emit(StateHistoryListExtending());
     if (items.length < maxCount) {
+      emit(StateHistoryListExtending());
       var (historyList, fail) = await repositoryGetVitals.getHistoryList(
         pageNumber: pageNumber + 1,
         pageSize: pageSize, deviceId: event.deviceId,
@@ -71,7 +71,10 @@ class BlocHistoryList extends Bloc<EventHistoryList, StateHistoryList> {
         emit(StateHistoryListLoadFail(message: fail));
       }
     } else {
-      emit(StateHistoryListMaxLoad(message: AppText.noMoreHistory));
+      if (state is! StateHistoryListLoadFail){
+        emit(StateHistoryListMaxLoad(message: AppText.noMoreHistory));
+      }
+
     }
   }
 }
