@@ -50,7 +50,7 @@ void main() {
 
     test("fail:", () async {
       when(
-            () => apiCall.addDeviceDetails(data: any(named: "data")),
+        () => apiCall.addDeviceDetails(data: any(named: "data")),
       ).thenThrow(Exception());
 
       var (a, b) = await repository.addDeviceDetails(
@@ -58,7 +58,7 @@ void main() {
       );
       expect(b, equals(ClientConstant.networkIssue));
       verify(
-            () => apiCall.addDeviceDetails(data: any(named: "data")),
+        () => apiCall.addDeviceDetails(data: any(named: "data")),
       ).called(1);
     });
   });

@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "system_metrics.Domain", "sy
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "system_metrics.Infrastructure", "system_metrics.Infrastructure\system_metrics.Infrastructure.csproj", "{7B9BE2D3-8395-4B33-8D7D-A8F08070616B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "system_metrics.Tests", "system_metrics.Tests\system_metrics.Tests.csproj", "{8AE78F42-7CDB-4E3D-9FA8-854258F6A904}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{7B9BE2D3-8395-4B33-8D7D-A8F08070616B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B9BE2D3-8395-4B33-8D7D-A8F08070616B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B9BE2D3-8395-4B33-8D7D-A8F08070616B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8AE78F42-7CDB-4E3D-9FA8-854258F6A904}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AE78F42-7CDB-4E3D-9FA8-854258F6A904}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AE78F42-7CDB-4E3D-9FA8-854258F6A904}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AE78F42-7CDB-4E3D-9FA8-854258F6A904}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

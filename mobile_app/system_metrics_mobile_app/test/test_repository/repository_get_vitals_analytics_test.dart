@@ -40,15 +40,13 @@ void main() {
 
     test("fail:", () async {
       when(
-            () => apiCall.getAnalyticsData(data: any(named: "data")),
+        () => apiCall.getAnalyticsData(data: any(named: "data")),
       ).thenThrow(Exception());
 
-      var (a, b) = await repository.getAnalytics(
-        deviceId: "device_id",
-      );
+      var (a, b) = await repository.getAnalytics(deviceId: "device_id");
       expect(b, equals(ClientConstant.dataFetchedFailed));
       verify(
-            () => apiCall.getAnalyticsData(data: any(named: "data")),
+        () => apiCall.getAnalyticsData(data: any(named: "data")),
       ).called(1);
     });
   });
