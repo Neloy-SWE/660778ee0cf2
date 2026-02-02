@@ -3,7 +3,6 @@ Created by Neloy on 29 January, 2026.
 Email: taufiqneloy.swe@gmail.com
 */
 
-import 'package:dio/dio.dart';
 import 'package:system_metrics_mobile_app/data/api/api_call_post_vitals.dart';
 import 'package:system_metrics_mobile_app/data/client/client_constant.dart';
 import 'package:system_metrics_mobile_app/data/model/model_system_metrics.dart';
