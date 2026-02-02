@@ -61,7 +61,10 @@ Now
 ```bsah
 http://your-collected-ip-address-from-terminal-or-cmd:5005/
 ```
-you can use this link as your base url for front end develoopment.
+you can use this link as your base url for front end develoopment. and you will find swagger also:
+```bsah
+http://your-collected-ip-address-from-terminal-or-cmd:5005/swagger/index.html
+```
 
 ## Test:
 
